@@ -11,11 +11,9 @@ class HomePageTest(TestCase):
     def test_display_all_list_items(self):
         Item.objects.create(text="itemey 1")
         Item.objects.create(text="itemey 2")
-        
         response = self.client.get("/")
-        
-        self.assertIn("itemey 1", response.content.decode())
-        self.assertIn("itemey 2", response.content.decode())
+        self.assertContains(response, "itemey 1")
+        self.assertContains(response, "itemey 2")
         
     def test_can_save_a_post_request(self):
         self.client.post("/", data={"item_text": 'A new list item'})
